@@ -2,464 +2,399 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selamat Idul Fitri 1447 H - Tina Yunita</title>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- AOS Animation CSS -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Tailwind CSS (via CDN for layout efficiency) -->
-    <script>
-        // Mendefinisikan konfigurasi sebelum script CDN dimuat untuk mencegah ReferenceError
-        window.tailwind = {
-            config: {
-                theme: {
-                    extend: {
-                        colors: {
-                            emerald: {
-                                50: '#ecfdf5',
-                                100: '#d1fae5',
-                                500: '#10b981',
-                                700: '#047857',
-                                900: '#064e3b',
-                            },
-                            gold: '#fbbf24'
-                        },
-                        fontFamily: {
-                            'cute': ['Fredoka', 'sans-serif'],
-                            'body': ['Quicksand', 'sans-serif'],
-                        }
-                    }
-                }
-            }
-        };
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Kartu Spesial Untukmu</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
     <style>
-        /* Custom Styles & Overrides */
         body {
-            font-family: 'Quicksand', sans-serif;
-            background-color: #ecfdf5; /* emerald-50 */
-            color: #064e3b; /* emerald-900 */
-            overflow-x: hidden;
-            overscroll-behavior-y: none;
-        }
-
-        h1, h2, h3, .font-cute {
-            font-family: 'Fredoka', sans-serif;
-        }
-
-        /* Prevent scrolling before opening */
-        .no-scroll {
-            overflow: hidden;
-            height: 100vh;
-        }
-
-        /* Overlay / Cover Screen */
-        #cover-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* Diperbarui: Menambahkan background gambar dengan overlay gradient hijau */
-            background: linear-gradient(135deg, rgba(4, 120, 87, 0.85) 0%, rgba(16, 185, 129, 0.85) 100%),
-                        url('https://images.unsplash.com/photo-1577563908411-5077b6dc7624?q=80&w=1080&auto=format&fit=crop') center/cover no-repeat;
-            z-index: 9999;
+            font-family: 'Poppins', sans-serif;
+            background-color: #111827; /* Dark background for desktop */
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
-            color: white;
-            text-align: center;
-        }
-
-        .cover-slide-up {
-            transform: translateY(-100%);
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        /* Hero Section */
-        .hero-section {
-            position: relative;
-            min-height: 120vh; /* Diperbarui: Membuat hero lebih panjang dari tinggi layar normal */
-            padding: 5rem 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
             overflow: hidden;
-            background-color: #064e3b;
         }
 
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 0;
-            pointer-events: none;
+        .handwriting {
+            font-family: 'Caveat', cursive;
+        }
+
+        /* Hide Scrollbar */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Smooth Screen Transitions */
+        .screen-transition {
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        /* --- 3D Card Flip CSS --- */
+        .perspective-1000 { perspective: 1000px; }
+        .transform-style-3d { transform-style: preserve-3d; }
+        .backface-hidden { backface-visibility: hidden; }
+        .rotate-y-180 { transform: rotateY(180deg); }
+
+        .flip-card-inner {
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
         }
         
-        /* Overlay agar teks tetap terbaca di atas video/gambar */
-        .parallax-overlay {
+        .card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        
+        @keyframes bounce-scale {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .animate-win {
+            animation: bounce-scale 0.5s ease-in-out;
+        }
+
+        /* Confetti */
+        .confetti-piece {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to bottom, rgba(4, 120, 87, 0.4), rgba(6, 78, 59, 0.8));
-            z-index: 1; /* Diperbarui: Memastikan overlay selalu di atas gambar */
+            width: 10px;
+            height: 20px;
+            background: #ffd300;
+            top: -20px;
+            z-index: 100;
+            pointer-events: none;
+            animation: fall linear forwards;
         }
-
-        /* Floating Animation */
-        .floating {
-            animation: float 4s ease-in-out infinite;
-        }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
-
-        /* Soft transitions for images */
-        .gallery-img {
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            cursor: pointer;
-        }
-        .gallery-img:hover {
-            transform: scale(1.03) translateY(-5px);
-            box-shadow: 0 15px 30px rgba(4, 120, 87, 0.2);
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #d1fae5;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #10b981;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #047857;
-        }
-
-        /* Decorative shapes */
-        .shape {
-            position: absolute;
-            opacity: 0.1;
-            z-index: -1;
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(720deg); }
         }
     </style>
 </head>
-<body class="no-scroll">
+<body>
 
-    <!-- COVER SCREEN / OPEN INVITATION -->
-    <div id="cover-screen">
-        <!-- Tambahkan id="cover-content" di sini -->
-        <div id="cover-content" class="p-6 max-w-md w-full" data-aos="zoom-in" data-aos-duration="1000">
-            <i class="fa-solid fa-moon text-5xl text-gold mb-6 floating"></i>
-            <h3 class="text-xl md:text-2xl font-body mb-2">Spesial Untuk:</h3>
-            <h1 class="text-4xl md:text-5xl font-cute font-bold mb-8 text-gold drop-shadow-md">Yukaakiyowo</h1>
-            <p class="mb-8 font-body text-emerald-100">Kamu menerima sebuah ucapan manis Idul Fitri 1447 H.</p>
-            <button id="open-btn" class="bg-gold text-emerald-900 font-cute font-semibold text-lg py-3 px-8 rounded-full hover:bg-white hover:text-emerald-700 transition-all duration-300 shadow-lg transform hover:-translate-y-1">
-                <i class="fa-solid fa-envelope-open-text mr-2"></i> Buka Ucapan
-            </button>
-        </div>
+    <!-- Background Music -->
+    <audio id="bg-music" loop>
+        <!-- Menggunakan lagu ceria, bisa diganti URL-nya -->
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
 
-        <!-- LOADING KETUPAT (Awalnya tersembunyi) -->
-        <div id="loading-screen" class="hidden absolute inset-0 flex-col justify-center items-center opacity-0 transition-opacity duration-500">
-            <div class="animate-bounce mb-8">
-                <!-- Membentuk ketupat dari grid kotak-kotak yang diputar -->
-                <div class="w-16 h-16 transform rotate-45 grid grid-cols-2 gap-1 drop-shadow-xl">
-                    <div class="bg-emerald-400 rounded-sm"></div>
-                    <div class="bg-gold rounded-sm"></div>
-                    <div class="bg-gold rounded-sm"></div>
-                    <div class="bg-emerald-400 rounded-sm"></div>
-                </div>
-            </div>
-            <p class="text-white font-cute text-xl animate-pulse tracking-widest drop-shadow-md">Membuka kenangan...</p>
-        </div>
-    </div>
+    <!-- Confetti Container -->
+    <div id="confetti-container" class="absolute inset-0 pointer-events-none z-50 overflow-hidden"></div>
 
-    <!-- HERO SECTION -->
-    <section class="hero-section relative">
-        <!-- Image Background yang diperbarui dengan sumber yang lebih stabil -->
-        <img src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=1920&auto=format&fit=crop" 
-             class="hero-bg" 
-             alt="Pemandangan Masjid"
-             onerror="this.onerror=null; this.src='https://images.pexels.com/photos/2236688/pexels-photo-2236688.jpeg?auto=compress&cs=tinysrgb&w=1600&h=900&dpr=1';">
+    <!-- Mobile Device Container -->
+    <div class="relative w-full max-w-md h-[100dvh] md:h-[90vh] md:rounded-[40px] bg-white overflow-hidden shadow-2xl md:border-[8px] border-gray-800 flex flex-col">
         
-        <div class="parallax-overlay"></div>
-        <div class="relative z-10 text-center px-4" data-aos="fade-up" data-aos-duration="1500">
-            <div class="inline-block mb-6 bg-white/20 backdrop-blur-md p-4 rounded-full border border-white/30 floating">
-                <i class="fa-solid fa-mosque text-4xl text-white"></i>
+        <!-- ==================== 1. GAME SCREEN ==================== -->
+        <div id="game-screen" class="absolute inset-0 z-40 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 screen-transition flex flex-col items-center justify-center select-none">
+            
+            <div class="text-center px-4 mb-10">
+                <h1 class="text-white text-4xl font-black drop-shadow-lg mb-4">Tebak Kartu!</h1>
+                <p id="instruction-text" class="text-white font-semibold animate-pulse bg-white/20 backdrop-blur-sm rounded-full px-5 py-2 inline-block shadow-sm transition-colors duration-300">
+                    Cari kartu Kue Ulang Tahun 🎂
+                </p>
             </div>
-            <h2 class="text-2xl md:text-3xl text-emerald-100 font-cute mb-2">Selamat Hari Raya</h2>
-            <h1 class="text-5xl md:text-7xl font-cute font-bold text-yellow-400 drop-shadow-lg mb-4">Idul Fitri</h1>
-            <h3 class="text-xl md:text-2xl text-white font-body tracking-widest">1 Syawal 1447 H</h3>
-            
-            <div class="mt-12 animate-bounce text-white/70">
-                <p class="text-sm font-body mb-2">Scroll ke bawah</p>
-                <i class="fa-solid fa-chevron-down"></i>
-            </div>
-        </div>
-        
-        <!-- Decorative SVG at bottom -->
-        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" class="w-full h-12 md:h-24 fill-emerald-50">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C79.81,118.92,197.8,111.41,321.39,56.44Z"></path>
-            </svg>
-        </div>
-    </section>
 
-    <!-- GREETING & PRAYER SECTION -->
-    <section class="py-20 px-6 md:px-12 max-w-4xl mx-auto relative text-center">
-        <!-- Decoration -->
-        <i class="fa-solid fa-star shape text-emerald-200 text-6xl top-10 left-10"></i>
-        <i class="fa-solid fa-star shape text-emerald-200 text-4xl bottom-20 right-10"></i>
-
-        <div class="bg-white rounded-[3rem] p-8 md:p-12 shadow-xl border-4 border-emerald-100" data-aos="zoom-in-up" data-aos-duration="1000">
-            <h2 class="text-3xl md:text-4xl font-cute text-emerald-700 mb-6">For my yukaa, <span class="text-gold">yang cantik & imut</span></h2>
-            
-            <div class="w-16 h-1 bg-emerald-300 mx-auto rounded-full mb-8"></div>
-            
-            <p class="text-lg md:text-xl leading-relaxed mb-6 text-gray-700 font-medium">
-                "Taqabbalallahu minna wa minkum shiyamana wa shiyamakum."
-            </p>
-            
-            <p class="text-base md:text-lg leading-relaxed text-gray-600 mb-4 text-justify md:text-center">
-                Gema takbir telah berkumandang memecah kesunyian malam, menandakan bulan suci Ramadhan yang penuh ampunan telah berlalu meninggalkan kita. Kini, fajar kemenangan 1 Syawal 1447 Hijriah telah menyingsing. Di hari yang fitri dan penuh keberkahan ini, izinkan aku menundukkan kepala dan merendahkan hati.
-            </p>
-
-            <p class="text-base md:text-lg leading-relaxed text-gray-600 mb-6 text-justify md:text-center">
-                Mungkin selama kita bersama, ada canda yang tanpa sengaja menggores luka, ada sikap atau kata yang tak pantas terucap, atau janji yang belum sempat tertunaikan. Sebagai manusia biasa yang tak luput dari salah dan khilaf, dari lubuk hati yang paling dalam, aku memohon maaf atas segala keburukan dan kekuranganku. Mari kita buka lembaran baru yang bersih.
-            </p>
-            
-            <h3 class="text-2xl font-cute text-emerald-600 my-8 bg-emerald-50 py-3 px-6 rounded-2xl inline-block border border-emerald-100">
-                Minal Aidin Wal Faizin,<br>Mohon Maaf Lahir & Batin 🙏
-            </h3>
-
-            <p class="text-base md:text-lg leading-relaxed text-gray-600 italic text-justify md:text-center">
-                Semoga Allah SWT senantiasa menerima seluruh amal ibadah puasa kita, melipatgandakan pahala kita, dan mempertemukan kita kembali dengan Ramadhan di tahun-tahun berikutnya dalam keadaan sehat wal afiat. Teriring doa tulus agar limpahan rahmat, rezeki yang barokah, serta kebahagiaan selalu menyertai langkahmu dan keluarga tercinta. Selamat menikmati momen hangat berkumpul dan berbagi tawa bersama orang-orang tersayang, Tina!
-            </p>
-        </div>
-    </section>
-
-    <!-- GALLERY SECTION -->
-    <section class="py-16 px-4 md:px-10 bg-emerald-700 relative overflow-hidden">
-        <!-- SVG Top divider -->
-        <div class="absolute top-0 left-0 w-full overflow-hidden leading-[0] transform rotate-180">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" class="w-full h-10 fill-emerald-50">
-                <path d="M1200,0H0V120H281.94C531,120,534.82,27.13,791.67,27.13,1018.66,27.13,1086.32,120,1200,120Z"></path>
-            </svg>
-        </div>
-
-        <div class="max-w-5xl mx-auto mt-12">
-            <div class="text-center mb-12" data-aos="fade-up">
-                <h2 class="text-3xl md:text-4xl font-cute text-gold mb-6">Memori Indah Bersama</h2>
+            <!-- Cards Container -->
+            <div class="flex gap-3 px-4 justify-center w-full">
                 
-                <div class="max-w-3xl mx-auto bg-emerald-800/40 p-6 md:p-8 rounded-3xl backdrop-blur-sm border border-emerald-600/50 shadow-lg">
-                    <p class="text-emerald-50 font-body leading-relaxed text-base md:text-lg italic text-justify md:text-center">
-                        "Di antara banyaknya tawa yang terekam, ada satu hal yang paling aku syukuri, yaitu kehadiranmu. Terima kasih banyak telah bersedia menemaniku selama ini. Saat duniaku terasa begitu sepi, kehebohan obrolan kita dari larut malam hingga kekonyolan saat kita bermain bersama selalu berhasil mengisi kekosongan itu. Beberapa foto di bawah ini adalah saksi manis, bagaimana layar yang dingin bisa terasa begitu hangat karena ada kamu yang selalu menemani."
+                <!-- Card 0 -->
+                <div id="card-0" class="card w-24 h-36 md:w-28 md:h-40 perspective-1000 cursor-pointer touch-manipulation" onclick="flipCard(0)">
+                    <div class="flip-card-inner relative w-full h-full rounded-2xl shadow-xl">
+                        <!-- Front (Question Mark) -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-pink-400 to-orange-300 rounded-2xl backface-hidden flex items-center justify-center border-4 border-white shadow-inner">
+                            <span class="text-4xl text-white font-bold drop-shadow-md">?</span>
+                        </div>
+                        <!-- Back (Result) -->
+                        <div class="absolute inset-0 bg-white rounded-2xl backface-hidden rotate-y-180 flex items-center justify-center border-4 border-pink-400">
+                            <span id="card-content-0" class="text-5xl drop-shadow-sm"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 1 -->
+                <div id="card-1" class="card w-24 h-36 md:w-28 md:h-40 perspective-1000 cursor-pointer touch-manipulation" onclick="flipCard(1)">
+                    <div class="flip-card-inner relative w-full h-full rounded-2xl shadow-xl">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-pink-400 to-orange-300 rounded-2xl backface-hidden flex items-center justify-center border-4 border-white shadow-inner">
+                            <span class="text-4xl text-white font-bold drop-shadow-md">?</span>
+                        </div>
+                        <div class="absolute inset-0 bg-white rounded-2xl backface-hidden rotate-y-180 flex items-center justify-center border-4 border-pink-400">
+                            <span id="card-content-1" class="text-5xl drop-shadow-sm"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div id="card-2" class="card w-24 h-36 md:w-28 md:h-40 perspective-1000 cursor-pointer touch-manipulation" onclick="flipCard(2)">
+                    <div class="flip-card-inner relative w-full h-full rounded-2xl shadow-xl">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-pink-400 to-orange-300 rounded-2xl backface-hidden flex items-center justify-center border-4 border-white shadow-inner">
+                            <span class="text-4xl text-white font-bold drop-shadow-md">?</span>
+                        </div>
+                        <div class="absolute inset-0 bg-white rounded-2xl backface-hidden rotate-y-180 flex items-center justify-center border-4 border-pink-400">
+                            <span id="card-content-2" class="text-5xl drop-shadow-sm"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="win-overlay" class="absolute inset-0 bg-white/90 backdrop-blur-md flex flex-col items-center justify-center hidden z-20 transition-opacity duration-500 opacity-0">
+                <div class="text-7xl mb-4 animate-win">🎉</div>
+                <h2 class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500 mb-2">Hebat!</h2>
+                <p class="text-gray-700 font-semibold animate-pulse">Membuka kado spesialmu...</p>
+            </div>
+        </div>
+
+        <!-- Floating Music Control -->
+        <button id="music-control" onclick="toggleMusic()" class="absolute top-6 right-6 z-30 bg-white/80 backdrop-blur-md p-3 rounded-full shadow-lg opacity-0 transition-opacity duration-500 text-pink-600 hover:bg-pink-50 focus:outline-none hidden pointer-events-auto cursor-pointer border border-pink-100">
+            <svg id="icon-pause" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <svg id="icon-play" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        </button>
+
+        <!-- ==================== 2. MAIN CONTENT CARD ==================== -->
+        <div id="main-content" class="flex-1 overflow-y-auto overflow-x-hidden bg-[#fafafa] relative pb-20 no-scrollbar opacity-0 screen-transition hidden">
+            
+            <!-- Hero Greeting -->
+            <header class="pt-16 pb-8 px-6 text-center">
+                <div class="inline-block bg-pink-100 text-pink-600 px-5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-5 shadow-sm animate-fade-in-up border border-pink-200" style="animation-delay: 0.2s;">
+                    Spesial Untukmu
+                </div>
+                <h2 class="text-4xl md:text-5xl font-black text-gray-800 mb-3 animate-fade-in-up" style="animation-delay: 0.4s;">
+                    Happy <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500">Birthday!</span>
+                </h2>
+                <p class="text-gray-500 text-sm md:text-base font-medium animate-fade-in-up" style="animation-delay: 0.6s;">
+                    Semoga harimu dipenuhi dengan tawa dan cinta.
+                </p>
+            </header>
+
+            <!-- Photo Album Carousel (Snap-x) -->
+            <section class="mt-4 mb-10 animate-fade-in-up" style="animation-delay: 0.8s;">
+                <div class="px-6 mb-4 flex justify-between items-end">
+                    <h3 class="text-xl font-bold text-gray-800">Memori Indah 📸</h3>
+                    <span class="text-xs text-pink-500 font-bold bg-pink-50 px-2 py-1 rounded-md">Geser &rarr;</span>
+                </div>
+                
+                <!-- Horizontal Scroll Container -->
+                <div class="flex overflow-x-auto snap-x snap-mandatory gap-4 px-6 pb-6 no-scrollbar">
+                    <div class="snap-center shrink-0 w-64 h-80 rounded-3xl overflow-hidden relative shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1558636508-e0db3814bd1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Cake" class="w-full h-full object-cover">
+                        <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-gray-900/90 via-gray-900/40 to-transparent p-5 pt-12">
+                            <p class="text-white handwriting text-3xl">Momen Manis</p>
+                        </div>
+                    </div>
+                    
+                    <div class="snap-center shrink-0 w-64 h-80 rounded-3xl overflow-hidden relative shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Party" class="w-full h-full object-cover">
+                        <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-gray-900/90 via-gray-900/40 to-transparent p-5 pt-12">
+                            <p class="text-white handwriting text-3xl">Terus Bersinar</p>
+                        </div>
+                    </div>
+                    
+                    <div class="snap-center shrink-0 w-64 h-80 rounded-3xl overflow-hidden relative shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Event" class="w-full h-full object-cover">
+                        <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-gray-900/90 via-gray-900/40 to-transparent p-5 pt-12">
+                            <p class="text-white handwriting text-3xl">Penuh Tawa</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Handwritten Message Section -->
+            <section class="px-6 animate-fade-in-up" style="animation-delay: 1s;">
+                <div class="bg-white rounded-3xl p-8 shadow-xl relative border-2 border-pink-100">
+                    <div class="absolute -top-5 left-8 bg-gradient-to-br from-pink-400 to-purple-500 text-white w-12 h-12 rounded-full flex items-center justify-center text-4xl font-serif shadow-lg">
+                        "
+                    </div>
+                    
+                    <p class="handwriting text-3xl text-gray-700 leading-relaxed mt-4 text-justify">
+                        Selamat bertambah usia! <br><br>
+                        Terima kasih sudah bertahan dan berjuang sejauh ini. Semoga di umur yang baru ini, setiap doamu didengar, setiap mimpimu tercapai, dan bahagia selalu mengelilingimu. <br><br>
+                        Jangan lupa tersenyum hari ini! ✨
                     </p>
+                    
+                    <div class="mt-8 text-right border-t border-gray-100 pt-4">
+                        <p class="text-xs text-gray-400 font-bold uppercase tracking-wider">Peluk hangat dari,</p>
+                        <p class="text-3xl handwriting font-bold text-pink-500 mt-1">Sahabat Terbaikmu</p>
+                    </div>
                 </div>
-            </div>
-
-            <!-- CSS Grid Gallery -->
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-                <!-- Using lh3.googleusercontent.com for reliable Google Drive direct image embed -->
-                <div class="relative aspect-square overflow-hidden rounded-3xl border-4 border-emerald-500/30 gallery-img" data-aos="zoom-in" data-aos-delay="100">
-                    <img src="https://lh3.googleusercontent.com/d/1S5bX53UgihRRFOlVpQ7X4BOuoyuFisP3" 
-                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1564683214964-6fdd2362241b?q=80&w=400&auto=format&fit=crop';" 
-                         class="absolute inset-0 w-full h-full object-cover object-center" alt="Galeri 1">
-                </div>
-                <div class="relative aspect-square overflow-hidden rounded-3xl border-4 border-emerald-500/30 gallery-img" data-aos="zoom-in" data-aos-delay="200">
-                    <img src="https://lh3.googleusercontent.com/d/1o1tLRQb16sr5_B6Wwwz-NvtF_o3l9THL" 
-                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1596430588661-0b0c604b31cc?q=80&w=400&auto=format&fit=crop';" 
-                         class="absolute inset-0 w-full h-full object-cover object-center" alt="Galeri 2">
-                </div>
-                <div class="relative aspect-square overflow-hidden rounded-3xl border-4 border-emerald-500/30 gallery-img" data-aos="zoom-in" data-aos-delay="300">
-                    <img src="https://lh3.googleusercontent.com/d/1tUroEMph4liLqZLchxg9H4bPS4qIVt-J" 
-                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1584985223788-29472dc02213?q=80&w=400&auto=format&fit=crop';" 
-                         class="absolute inset-0 w-full h-full object-cover object-center" alt="Galeri 3">
-                </div>
-                <div class="relative aspect-square overflow-hidden rounded-3xl border-4 border-emerald-500/30 gallery-img" data-aos="zoom-in" data-aos-delay="400">
-                    <img src="https://lh3.googleusercontent.com/d/1E338GmZrgIN9qOQ35MSJuVyiXyvjfmPA" 
-                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1621213031070-dfc776fb082e?q=80&w=400&auto=format&fit=crop';" 
-                         class="absolute inset-0 w-full h-full object-cover object-center" alt="Galeri 4">
-                </div>
-                <div class="relative aspect-square overflow-hidden rounded-3xl border-4 border-emerald-500/30 gallery-img" data-aos="zoom-in" data-aos-delay="500">
-                    <img src="https://lh3.googleusercontent.com/d/11WUBtSsGkmyRBhQNpU7EuBKL3RfjAPMa" 
-                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1620241608701-94ef138c7ec9?q=80&w=400&auto=format&fit=crop';" 
-                         class="absolute inset-0 w-full h-full object-cover object-center" alt="Galeri 5">
-                </div>
-                <div class="relative aspect-square overflow-hidden rounded-3xl border-4 border-emerald-500/30 gallery-img" data-aos="zoom-in" data-aos-delay="600">
-                    <img src="https://lh3.googleusercontent.com/d/17ratkXf88m1lX13EjgO-gpExwONBuL8J" 
-                         onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1617260842606-25f0a0088df6?q=80&w=400&auto=format&fit=crop';" 
-                         class="absolute inset-0 w-full h-full object-cover object-center" alt="Galeri 6">
-                </div>
-            </div>
-        </div>
-        
-        <!-- SVG Bottom divider -->
-        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" class="w-full h-10 fill-emerald-50">
-                <path d="M1200,0H0V120H281.94C531,120,534.82,27.13,791.67,27.13,1018.66,27.13,1086.32,120,1200,120Z"></path>
-            </svg>
-        </div>
-    </section>
-
-    <!-- CLOSING SECTION & RSVP PROMPT -->
-    <section class="py-20 px-6 text-center relative">
-        <div class="max-w-2xl mx-auto" data-aos="fade-up">
-            <h2 class="text-3xl font-cute text-emerald-800 mb-6">Haloo kaa...</h2>
-            <p class="text-gray-600 mb-8 font-medium">"Cuma mau menyapa, semoga harimu selalu menyenangkan! Kabari ya kalau kamu sudah senggang buat ngobrol."</p>
+            </section>
             
-            <form id="rsvp-form" class="space-y-4">
-                <input type="text" value="Tina Yunita" readonly class="w-full px-5 py-3 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-800 font-semibold focus:outline-none">
-                <textarea id="pesan-balasan" rows="4" placeholder="Tulis ucapan balasanmu di sini..." class="w-full px-5 py-3 rounded-xl border border-emerald-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 font-body transition-all" required></textarea>
-                <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-cute font-semibold text-lg py-3 px-8 rounded-full transition-all duration-300 shadow-md w-full md:w-auto inline-flex items-center justify-center gap-2 transform hover:-translate-y-1">
-                    <i class="fa-brands fa-whatsapp"></i> Kirim Pesan via WA
-                </button>
-            </form>
+            <div class="h-10 mt-12 mb-6 flex justify-center text-pink-300 space-x-2 text-xl">
+                <span>✦</span>
+                <span>✦</span>
+                <span>✦</span>
+            </div>
         </div>
-        <p class="mt-16 text-sm text-emerald-600/60 font-medium">Dibuat dengan ❤️ untuk menyambut hari kemenangan.</p>
-    </section>
-
-    <!-- IMAGE MODAL (LIGHTBOX) -->
-    <div id="image-modal" class="fixed inset-0 z-[10000] bg-black/95 hidden flex-col justify-center items-center opacity-0 transition-opacity duration-300">
-        <button id="close-modal" class="absolute top-4 right-6 text-white hover:text-gold text-5xl focus:outline-none transition-transform hover:scale-110">&times;</button>
-        <img id="modal-img" src="" alt="Enlarged Image" class="max-w-[95vw] max-h-[85vh] object-contain rounded-2xl shadow-2xl transform scale-95 transition-transform duration-300">
     </div>
 
-    <!-- Scripts -->
-    <!-- AOS Animation script -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
+    <!-- JavaScript Logic -->
     <script>
-        // 1. Initialize AOS Animation
-        AOS.init({
-            once: false,
-            mirror: true,
-            offset: 50
-        });
+        // --- GAME LOGIC ---
+        const emojis = ['👻', '👽', '🎂'];
+        let cardContents = [];
+        let gameWon = false;
+        let flipTimeout = null;
 
-        // 2. Cover Screen & "Buka Ucapan" Button Logic
-        const openBtn = document.getElementById('open-btn');
-        const coverScreen = document.getElementById('cover-screen');
-        const coverContent = document.getElementById('cover-content'); // Mengambil elemen konten cover
-        const loadingScreen = document.getElementById('loading-screen'); // Mengambil elemen loading
-        const bodyElement = document.body;
-
-        openBtn.addEventListener('click', () => {
-            // 1. Tambahkan animasi 3D seperti kartu terbuka/jatuh ke depan pada konten
-            coverContent.style.transition = 'transform 0.6s ease-in, opacity 0.5s ease-in';
-            coverContent.style.transform = 'perspective(600px) rotateX(90deg) scale(1.1)';
-            coverContent.style.opacity = '0';
+        function initGame() {
+            // Shuffle array
+            cardContents = [...emojis].sort(() => Math.random() - 0.5);
             
-            // 2. Munculkan animasi loading ketupat setelah kartu awal menghilang
-            setTimeout(() => {
-                coverContent.style.display = 'none'; // Hilangkan kartu dari layar
-                loadingScreen.classList.remove('hidden');
-                loadingScreen.classList.add('flex');
-                
-                // Memicu fade-in perlahan
-                setTimeout(() => {
-                    loadingScreen.classList.remove('opacity-0');
-                    loadingScreen.classList.add('opacity-100');
-                }, 50);
-            }, 600); // Menunggu animasi jatuh (0.6 detik)
-            
-            // 3. Beri jeda agak lama (sekitar 3 detik) untuk memamerkan animasi ketupat, lalu buka layarnya
-            setTimeout(() => {
-                coverScreen.classList.add('cover-slide-up');
-            }, 3500); // 600ms + 2900ms waktu loading
-            
-            // 4. Kembalikan fungsi scroll halaman setelah layar benar-benar terbuka
-            setTimeout(() => {
-                bodyElement.classList.remove('no-scroll');
-            }, 4500);
-        });
-
-        // 3. RSVP Form Logic (WhatsApp Forwarding)
-        const rsvpForm = document.getElementById('rsvp-form');
-        rsvpForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const message = document.getElementById('pesan-balasan').value;
-            const textToWa = `Halo, saya Tina! Terima kasih atas ucapan Idul Fitrinya. %0A%0A"${message}"`;
-            
-            // Replace with your actual WhatsApp Number (Format: 628xxxxxxxxxx)
-            const targetWaNumber = "6285156501355"; 
-            
-            const waUrl = `https://wa.me/${targetWaNumber}?text=${textToWa}`;
-            window.open(waUrl, '_blank');
-        });
-
-        // 5. Lightbox / Image Modal Logic
-        const modal = document.getElementById('image-modal');
-        const modalImg = document.getElementById('modal-img');
-        const closeModalBtn = document.getElementById('close-modal');
-        const galleryImages = document.querySelectorAll('.gallery-img img');
-
-        galleryImages.forEach(img => {
-            // Ubah kursor menjadi pointer untuk menandakan gambar bisa diklik
-            img.style.cursor = 'pointer';
-            
-            img.addEventListener('click', function() {
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-                
-                // Timeout singkat untuk memicu animasi CSS transisi yang halus
-                setTimeout(() => {
-                    modal.classList.remove('opacity-0');
-                    modalImg.classList.remove('scale-95');
-                    modalImg.classList.add('scale-100');
-                }, 10);
-                
-                // Set sumber gambar modal sesuai dengan gambar yang baru saja diklik
-                modalImg.src = this.src;
-                
-                // Cegah halaman belakang agar tidak bisa di-scroll saat modal gambar terbuka
-                document.body.style.overflow = 'hidden'; 
-            });
-        });
-
-        function closeModal() {
-            // Mulai animasi menyembunyikan
-            modal.classList.add('opacity-0');
-            modalImg.classList.remove('scale-100');
-            modalImg.classList.add('scale-95');
-            
-            // Tunggu animasi CSS selesai sebelum benar-benar menghilangkan elemen
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-                document.body.style.overflow = ''; // Kembalikan scroll halaman
-            }, 300);
+            // Assign to DOM
+            for(let i=0; i<3; i++) {
+                document.getElementById(`card-content-${i}`).innerText = cardContents[i];
+            }
         }
 
-        // Tutup saat tombol silang (X) diklik
-        closeModalBtn.addEventListener('click', closeModal);
-        
-        // Tutup modal jika area luar gambar (area gelap) diklik
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                closeModal();
+        function flipCard(index) {
+            if (gameWon) return; // Stop if already won
+            
+            const card = document.getElementById(`card-${index}`);
+            if (card.classList.contains('flipped')) return; // Stop if already flipped
+
+            // Flip the card
+            card.classList.add('flipped');
+
+            const instructionText = document.getElementById('instruction-text');
+
+            if (cardContents[index] === '🎂') {
+                // WON
+                gameWon = true;
+                instructionText.innerText = "Yeay! Ketemu! 🎉";
+                instructionText.classList.replace('bg-white/20', 'bg-green-500/90');
+                
+                // Play music as user interacted with the screen
+                playMusic();
+
+                setTimeout(() => {
+                    winGameTransition();
+                }, 1200);
+
+            } else {
+                // ZONK - Let them keep trying
+                instructionText.innerText = "Oops! Zonk 😜 Coba lagi!";
+                instructionText.classList.replace('bg-white/20', 'bg-red-500/80');
+                
+                // Reset instruction text color after a moment if they haven't won
+                clearTimeout(flipTimeout);
+                flipTimeout = setTimeout(() => {
+                    if(!gameWon) {
+                        instructionText.classList.replace('bg-red-500/80', 'bg-white/20');
+                    }
+                }, 1500);
             }
-        });
+        }
+
+        function winGameTransition() {
+            const winOverlay = document.getElementById('win-overlay');
+            winOverlay.classList.remove('hidden');
+            
+            // Trigger transition
+            void winOverlay.offsetWidth;
+            winOverlay.classList.remove('opacity-0');
+
+            setTimeout(() => {
+                showMainCard();
+            }, 1500);
+        }
+
+        // --- MAIN CARD LOGIC ---
+        const gameScreen = document.getElementById('game-screen');
+        const mainContent = document.getElementById('main-content');
+        const musicControl = document.getElementById('music-control');
+        const audio = document.getElementById('bg-music');
+        let isMusicPlaying = false;
+
+        function showMainCard() {
+            gameScreen.style.opacity = '0';
+            
+            setTimeout(() => {
+                gameScreen.classList.add('hidden');
+                
+                mainContent.classList.remove('hidden');
+                musicControl.classList.remove('hidden');
+                
+                // Trigger transition
+                void mainContent.offsetWidth;
+                
+                mainContent.style.opacity = '1';
+                musicControl.style.opacity = '1';
+                
+                shootConfetti();
+            }, 800);
+        }
+
+        // --- CONFETTI LOGIC ---
+        function shootConfetti() {
+            const colors = ['#fce18a', '#ff726d', '#b48def', '#f4306d', '#42d6a4'];
+            const container = document.getElementById('confetti-container');
+            const pieceCount = 60; // adjusted for mobile performance
+
+            for (let i = 0; i < pieceCount; i++) {
+                const piece = document.createElement('div');
+                piece.classList.add('confetti-piece');
+                
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const left = Math.random() * 100; // 0 to 100vw
+                const animationDuration = Math.random() * 3 + 2; // 2s to 5s
+                const animationDelay = Math.random() * 1.5; // 0 to 1.5s
+                const rotation = Math.random() * 360;
+
+                piece.style.backgroundColor = color;
+                piece.style.left = `${left}vw`;
+                piece.style.animationDuration = `${animationDuration}s`;
+                piece.style.animationDelay = `${animationDelay}s`;
+                piece.style.transform = `rotate(${rotation}deg)`;
+                
+                container.appendChild(piece);
+                
+                // Cleanup
+                setTimeout(() => {
+                    if(piece.parentNode) piece.parentNode.removeChild(piece);
+                }, (animationDuration + animationDelay) * 1000);
+            }
+        }
+
+        // --- AUDIO CONTROLS ---
+        function playMusic() {
+            audio.play().then(() => {
+                isMusicPlaying = true;
+                document.getElementById('icon-pause').classList.remove('hidden');
+                document.getElementById('icon-play').classList.add('hidden');
+            }).catch(e => console.log("Audio play failed (maybe require stronger interaction):", e));
+        }
+
+        function toggleMusic() {
+            if (isMusicPlaying) {
+                audio.pause();
+                document.getElementById('icon-pause').classList.add('hidden');
+                document.getElementById('icon-play').classList.remove('hidden');
+            } else {
+                audio.play();
+                document.getElementById('icon-pause').classList.remove('hidden');
+                document.getElementById('icon-play').classList.add('hidden');
+            }
+            isMusicPlaying = !isMusicPlaying;
+        }
+
+        // Initialize game on load
+        window.onload = initGame;
     </script>
 </body>
 </html>
